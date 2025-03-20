@@ -1,48 +1,56 @@
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
-import Index from "./pages/Index";
-import Dashboard from "./pages/Dashboard";
-import Offers from "./pages/Offers";
-import Withdraw from "./pages/Withdraw";
-import Referral from "./pages/Referral";
-import VendorSubmit from "./pages/VendorSubmit";
-import NotFound from "./pages/NotFound";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import { Navbar } from "@/components/layout/Navbar";
-import { OfferWalls } from "@/components/offers/OfferWalls";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from '@/contexts/AuthContext';
+import { MainLayout } from '@/components/layout/MainLayout';
+import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
+import { Toaster } from '@/components/ui/toaster';
+import Home from '@/pages/Home';
+import Tasks from '@/pages/Tasks';
+import Rewards from '@/pages/Rewards';
+import Login from '@/pages/Login';
+import Register from '@/pages/Register';
 
-const queryClient = new QueryClient();
-
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Sonner position="top-right" closeButton expand={false} />
-      <BrowserRouter>
-        <AnimatePresence mode="wait">
-          <Navbar />
-          <main className="container mx-auto p-4">
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/offers" element={<Offers />} />
-              <Route path="/withdraw" element={<Withdraw />} />
-              <Route path="/referral" element={<Referral />} />
-              <Route path="/vendor-submit" element={<VendorSubmit />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/offer-walls" element={<OfferWalls />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </main>
-        </AnimatePresence>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+function App() {
+  return (
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<MainLayout />}>
+            <Route index element={<Home />} />
+            <Route
+              path="tasks"
+              element={
+                <ProtectedRoute>
+                  <Tasks />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="rewards"
+              element={
+                <ProtectedRoute>
+                  <Rewards />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="leaderboard"
+              element={
+                <ProtectedRoute>
+                  <div>Leaderboard Page</div>
+                </ProtectedRoute>
+              }
+            />
+            <Route path="login" element={<Login />} />
+            <Route path="register" element={<Register />} />
+            <Route path="about" element={<div>About Page</div>} />
+            <Route path="terms" element={<div>Terms Page</div>} />
+            <Route path="privacy" element={<div>Privacy Page</div>} />
+          </Route>
+        </Routes>
+      </Router>
+      <Toaster />
+    </AuthProvider>
+  );
+}
 
 export default App;
