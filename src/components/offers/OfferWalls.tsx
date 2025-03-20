@@ -5,6 +5,9 @@ import { UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { offerWalls } from "@/lib/constants";
 import { vendorGames } from "@/data/vendorGames";
+import { offerwallProviders } from "@/data/offerwallProviders";
+import { surveyNetworks } from "@/data/surveyNetworks";
+import { affiliateNetworks } from "@/data/affiliateNetworks";
 import { GamePlayer } from "./GamePlayer";
 import { OfferSearch } from "./OfferSearch";
 import { FeaturedOffer } from "./FeaturedOffer";
@@ -12,7 +15,7 @@ import { OfferCard } from "./OfferCard";
 import { VendorGame, GameInfo, Offer } from "@/types/offers";
 import PayPalButton from "@/components/PayPalButton";
 
-const allOffers = [...offerWalls, ...vendorGames];
+const allOffers = [...offerWalls, ...vendorGames, ...offerwallProviders, ...surveyNetworks, ...affiliateNetworks];
 
 export function OfferWalls() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -20,7 +23,7 @@ export function OfferWalls() {
   const [selectedGame, setSelectedGame] = useState<VendorGame | null>(null);
   const [isGamePlayerOpen, setIsGamePlayerOpen] = useState(false);
   
-  const categories = ["All", "Surveys", "Apps", "Games", "Tasks", "Trials"];
+  const categories = ["All", "Surveys", "Apps", "Games", "Tasks", "Trials", "Offerwall", "Affiliate"];
   
   const filteredOffers = allOffers.filter(offer => {
     const matchesSearch = offer.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -59,6 +62,12 @@ export function OfferWalls() {
   const handleCloseGamePlayer = () => {
     setIsGamePlayerOpen(false);
     setSelectedGame(null);
+  };
+
+  const handleOpenExternalOffer = (offer: Offer) => {
+    if ('url' in offer) {
+      window.open(offer.url, '_blank');
+    }
   };
 
   const mapSelectedGameToGameInfo = (): GameInfo | null => {
@@ -118,6 +127,7 @@ export function OfferWalls() {
             itemVariants={itemVariants}
             index={index}
             handlePlayGame={handlePlayGame}
+            handleOpenExternalOffer={handleOpenExternalOffer}
           />
         ))}
       </div>
