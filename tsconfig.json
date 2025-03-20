@@ -14,6 +14,12 @@
     "skipLibCheck": true,
     "allowJs": true,
     "noUnusedLocals": false,
-    "strictNullChecks": false
-  }
+    "strictNullChecks": false,
+    "typeRoots": ["./node_modules/@types", "./src/types"],
+    "composite": true,
+    "noEmit": false
+  },
+  "include": [
+    "src/types/paypal__react-paypal-js.d.ts"
+  ]
 }
