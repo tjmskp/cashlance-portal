@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -18,8 +17,19 @@ import { offerWalls } from "@/lib/constants";
 import { GamePlayer } from "./GamePlayer";
 import { PayPalButton } from "../payment/PayPalButton";
 
-// Add vendor submitted games - in a real app, this would come from your database
-const vendorGames = [
+type VendorGame = {
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+  averageReward: string;
+  category: string;
+  gameUrl: string;
+  rules: string;
+  vendor: string;
+};
+
+const vendorGames: VendorGame[] = [
   {
     id: "v1",
     name: "Puzzle Master",
@@ -55,13 +65,12 @@ const vendorGames = [
   }
 ];
 
-// Combine all offers
 const allOffers = [...offerWalls, ...vendorGames];
 
 export function OfferWalls() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [selectedGame, setSelectedGame] = useState<any | null>(null);
+  const [selectedGame, setSelectedGame] = useState<VendorGame | null>(null);
   const [isGamePlayerOpen, setIsGamePlayerOpen] = useState(false);
   
   const categories = ["All", "Surveys", "Apps", "Games", "Tasks", "Trials"];
@@ -95,7 +104,7 @@ export function OfferWalls() {
     }
   };
 
-  const handlePlayGame = (game: any) => {
+  const handlePlayGame = (game: VendorGame) => {
     setSelectedGame(game);
     setIsGamePlayerOpen(true);
   };
@@ -158,7 +167,6 @@ export function OfferWalls() {
         </div>
       </motion.div>
 
-      {/* Featured offer */}
       <motion.div variants={itemVariants}>
         <Card className="overflow-hidden border-2 border-cashlance-300/50">
           <div className="relative">
@@ -230,7 +238,7 @@ export function OfferWalls() {
                       <div className="text-sm text-muted-foreground">Reward</div>
                       <div className="text-xl font-bold">{offer.averageReward}</div>
                     </div>
-                    <Button onClick={() => handlePlayGame(offer)}>Play Now</Button>
+                    <Button onClick={() => handlePlayGame(offer as VendorGame)}>Play Now</Button>
                   </div>
                 ) : (
                   <div className="flex justify-between items-center">
@@ -242,7 +250,6 @@ export function OfferWalls() {
                   </div>
                 )}
                 
-                {/* Show vendor info if available */}
                 {'vendor' in offer && (
                   <div className="mt-3 pt-3 border-t text-xs text-muted-foreground">
                     Provided by: {offer.vendor}
@@ -254,15 +261,19 @@ export function OfferWalls() {
         ))}
       </div>
 
-      {/* Game player dialog */}
       {selectedGame && (
         <GamePlayer
           isOpen={isGamePlayerOpen}
           onClose={handleCloseGamePlayer}
-          game={selectedGame}
+          game={{
+            id: selectedGame.id,
+            name: selectedGame.name,
+            gameUrl: selectedGame.gameUrl,
+            rules: selectedGame.rules,
+            reward: selectedGame.averageReward
+          }}
         />
       )}
     </motion.div>
   );
 }
-
