@@ -12,6 +12,8 @@ import VendorSubmit from "./pages/VendorSubmit";
 import NotFound from "./pages/NotFound";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import { Navbar } from "@/components/layout/Navbar";
+import { OfferWalls } from "@/components/offers/OfferWalls";
 
 const queryClient = new QueryClient();
 
@@ -21,18 +23,22 @@ const App = () => (
       <Sonner position="top-right" closeButton expand={false} />
       <BrowserRouter>
         <AnimatePresence mode="wait">
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/offers" element={<Offers />} />
-            <Route path="/withdraw" element={<Withdraw />} />
-            <Route path="/referral" element={<Referral />} />
-            <Route path="/vendor-submit" element={<VendorSubmit />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <Navbar />
+          <main className="container mx-auto p-4">
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/offers" element={<Offers />} />
+              <Route path="/withdraw" element={<Withdraw />} />
+              <Route path="/referral" element={<Referral />} />
+              <Route path="/vendor-submit" element={<VendorSubmit />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/offer-walls" element={<OfferWalls />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </main>
         </AnimatePresence>
       </BrowserRouter>
     </TooltipProvider>

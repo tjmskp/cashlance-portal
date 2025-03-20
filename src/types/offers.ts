@@ -1,4 +1,3 @@
-
 export type OfferWall = {
   id: string;
   name: string;
@@ -18,6 +17,8 @@ export type VendorGame = {
   gameUrl: string;
   rules: string;
   vendor: string;
+  paypalEmail: string;
+  paymentRules: string;
 };
 
 export type GameInfo = {

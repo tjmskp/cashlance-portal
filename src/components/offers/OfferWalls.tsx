@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
@@ -10,7 +9,8 @@ import { GamePlayer } from "./GamePlayer";
 import { OfferSearch } from "./OfferSearch";
 import { FeaturedOffer } from "./FeaturedOffer";
 import { OfferCard } from "./OfferCard";
-import { VendorGame, GameInfo } from "@/types/offers";
+import { VendorGame, GameInfo, Offer } from "@/types/offers";
+import PayPalButton from "@/components/PayPalButton";
 
 const allOffers = [...offerWalls, ...vendorGames];
 
@@ -129,6 +129,8 @@ export function OfferWalls() {
           game={mapSelectedGameToGameInfo() as GameInfo}
         />
       )}
+
+      <PayPalButton />
     </motion.div>
   );
 }

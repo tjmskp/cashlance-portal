@@ -1,21 +1,20 @@
-
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { DollarSign, Star, Clock } from "lucide-react";
-import { Offer, VendorGame } from "@/types/offers";
+import { DollarSign } from "lucide-react";
+import { VendorGame, Offer } from "@/types/offers";
 
-interface OfferCardProps {
+type OfferCardProps = {
   offer: Offer;
-  itemVariants: any;
+  itemVariants: Record<string, unknown>; // Changed from any to unknown
   index: number;
   handlePlayGame: (game: VendorGame) => void;
-}
+};
 
 export function OfferCard({ offer, itemVariants, index, handlePlayGame }: OfferCardProps) {
   const isVendorGame = 'gameUrl' in offer;
-  
+
   return (
     <motion.div 
       variants={itemVariants}
@@ -36,45 +35,9 @@ export function OfferCard({ offer, itemVariants, index, handlePlayGame }: OfferC
           </div>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground mb-4">{offer.description}</p>
-          
-          <div className="flex justify-between items-center mb-4">
-            <div className="flex items-center">
-              <Star className="h-4 w-4 text-yellow-500 mr-1" />
-              <Star className="h-4 w-4 text-yellow-500 mr-1" />
-              <Star className="h-4 w-4 text-yellow-500 mr-1" />
-              <Star className="h-4 w-4 text-yellow-500 mr-1" />
-              <Star className="h-4 w-4 text-muted mr-1" />
-              <span className="text-sm text-muted-foreground">(4.0)</span>
-            </div>
-            <div className="text-sm flex items-center">
-              <Clock className="h-3 w-3 mr-1 text-muted-foreground" />
-              <span className="text-muted-foreground">~10 min</span>
-            </div>
-          </div>
-          
-          {isVendorGame ? (
-            <div className="flex justify-between items-center">
-              <div>
-                <div className="text-sm text-muted-foreground">Reward</div>
-                <div className="text-xl font-bold">{offer.averageReward}</div>
-              </div>
-              <Button onClick={() => handlePlayGame(offer as VendorGame)}>Play Now</Button>
-            </div>
-          ) : (
-            <div className="flex justify-between items-center">
-              <div>
-                <div className="text-sm text-muted-foreground">Average reward</div>
-                <div className="text-xl font-bold">{offer.averageReward}</div>
-              </div>
-              <Button>View Offers</Button>
-            </div>
-          )}
-          
-          {'vendor' in offer && (
-            <div className="mt-3 pt-3 border-t text-xs text-muted-foreground">
-              Provided by: {offer.vendor}
-            </div>
+          <p>{offer.description}</p>
+          {isVendorGame && (
+            <Button onClick={() => handlePlayGame(offer as VendorGame)}>Play Game</Button>
           )}
         </CardContent>
       </Card>

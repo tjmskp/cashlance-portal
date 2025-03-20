@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { z } from "zod";
@@ -47,7 +46,13 @@ const formSchema = z.object({
   rules: z.string().min(10, {
     message: "Please describe the completion rules.",
   }),
-  commission: z.string().default("20")
+  commission: z.string().default("20"),
+  paypalEmail: z.string().email({
+    message: "Please enter a valid PayPal email.",
+  }),
+  paymentRules: z.string().min(10, {
+    message: "Please describe the payment rules.",
+  }),
 });
 
 export function VendorOfferForm() {
@@ -63,7 +68,9 @@ export function VendorOfferForm() {
       imageUrl: "",
       reward: "",
       rules: "",
-      commission: "20"
+      commission: "20",
+      paypalEmail: "",
+      paymentRules: "",
     },
   });
 
@@ -276,6 +283,41 @@ export function VendorOfferForm() {
                       <FormDescription>
                         Describe what users need to do to earn the reward
                       </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="paypalEmail"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>PayPal Email</FormLabel>
+                      <FormControl>
+                        <Input placeholder="your-email@example.com" {...field} />
+                      </FormControl>
+                      <FormDescription>
+                        Enter your PayPal email for receiving payments.
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
+                  name="paymentRules"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Payment Rules</FormLabel>
+                      <FormControl>
+                        <Textarea 
+                          placeholder="Describe the payment rules..." 
+                          className="min-h-[100px]"
+                          {...field} 
+                        />
+                      </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}

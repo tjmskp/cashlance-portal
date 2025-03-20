@@ -1,4 +1,3 @@
-
 import { VendorGame } from "@/types/offers";
 
 export const vendorGames: VendorGame[] = [
@@ -11,7 +10,9 @@ export const vendorGames: VendorGame[] = [
     category: "Games",
     gameUrl: "https://example.com/puzzle-game",
     rules: "Complete the first 5 puzzles without using hints to earn your reward.",
-    vendor: "GameStudio Inc."
+    vendor: "GameStudio Inc.",
+    paypalEmail: "vendor1@example.com",
+    paymentRules: "Payment will be processed within 24 hours after task completion."
   },
   {
     id: "v2",
@@ -22,7 +23,9 @@ export const vendorGames: VendorGame[] = [
     category: "Games",
     gameUrl: "https://example.com/fantasy-rpg",
     rules: "Create a character, complete the tutorial, and defeat the first boss.",
-    vendor: "Epic Games LLC"
+    vendor: "Epic Games LLC",
+    paypalEmail: "vendor2@example.com",
+    paymentRules: "Payment will be processed within 24 hours after task completion."
   },
   {
     id: "v3",
@@ -33,6 +36,8 @@ export const vendorGames: VendorGame[] = [
     category: "Apps",
     gameUrl: "https://example.com/fitness-app",
     rules: "Install the app, create an account, and log 3 workouts.",
-    vendor: "HealthTech Solutions"
+    vendor: "HealthTech Solutions",
+    paypalEmail: "vendor3@example.com",
+    paymentRules: "Payment will be processed within 24 hours after task completion."
   }
 ];
