@@ -12,7 +12,7 @@
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": false,
-    "emitDeclarationOnly": true, // Added this line
+    "emitDeclarationOnly": true, // Ensure this line is present
     "jsx": "react-jsx",
 
     /* Linting */
