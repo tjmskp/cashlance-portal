@@ -10,6 +10,7 @@ import Dashboard from "./pages/Dashboard";
 import Offers from "./pages/Offers";
 import Withdraw from "./pages/Withdraw";
 import Referral from "./pages/Referral";
+import VendorSubmit from "./pages/VendorSubmit";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
             <Route path="/offers" element={<Offers />} />
             <Route path="/withdraw" element={<Withdraw />} />
             <Route path="/referral" element={<Referral />} />
+            <Route path="/vendor-submit" element={<VendorSubmit />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
