@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -108,7 +107,7 @@ export function Navbar({ className = "" }: NavbarProps) {
           <ThemeToggle />
           
           <Button className="hidden md:flex ml-2 cashlance-button">
-            Log In
+            <Link to="/login">Log In</Link>
           </Button>
 
           {/* Mobile menu button */}
@@ -166,7 +165,7 @@ export function Navbar({ className = "" }: NavbarProps) {
                   className="mt-4"
                 >
                   <Button className="w-full cashlance-button py-5 mt-2">
-                    Log In
+                    <Link to="/login">Log In</Link>
                   </Button>
                 </motion.div>
               </div>

@@ -1,5 +1,3 @@
-
-import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -12,13 +10,14 @@ import Withdraw from "./pages/Withdraw";
 import Referral from "./pages/Referral";
 import VendorSubmit from "./pages/VendorSubmit";
 import NotFound from "./pages/NotFound";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <Toaster />
       <Sonner position="top-right" closeButton expand={false} />
       <BrowserRouter>
         <AnimatePresence mode="wait">
@@ -29,6 +28,8 @@ const App = () => (
             <Route path="/withdraw" element={<Withdraw />} />
             <Route path="/referral" element={<Referral />} />
             <Route path="/vendor-submit" element={<VendorSubmit />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
